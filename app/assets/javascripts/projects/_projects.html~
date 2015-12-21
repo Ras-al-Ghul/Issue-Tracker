@@ -1,0 +1,76 @@
+<div class="col-md-12">
+	<div class="header">
+		<h1>Project List</h1>
+	</div>
+	<div class="input-group">
+		<span class="input-group-addon">
+			<span class="glyphicon glyphicon-search"></span>
+		</span>
+		<input type="text" class="form-control" ng-model="searchInput">
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th class="col-md-1" style="text-align:center">Private</th>
+				<th class="col-md-1" ng-click="sortorder(1)" style="text-align:center">ID <span class={{orders[1].icon}}></span></th>
+				<th class="col-md-3" ng-click="sortorder(0)" style="text-align:center">Title <span class={{orders[0].icon}}></span></th>
+				<th class="col-md-2" style="text-align:center">Owner</th>
+				<th class="col-md-4" style="text-align:center">Members</th>
+				<th class="col-md-1" ng-click="sortorder(2)" style="text-align:center">Issue Count <span class={{orders[2].icon}}></th>
+			</tr>
+		</thead>
+		<tbody >
+			<tr ng-repeat="project in projects | filter:searchInput | orderBy:orderchoice.key:orderchoice.reverse">
+				<td class="col-md-1" style="text-align:center">
+					<span class="glyphicon glyphicon-star" ng-if="project.privateflag"></span>
+				</td>
+				<td class="col-md-1" style="text-align:center">
+					<a href="#/projects/{{project.id}}">{{project.id}}</a>
+				</td>
+				<td class="col-md-3" style="text-align:center">
+					<a href="#/projects/{{project.id}}">{{project.title}}</a>
+				</td>
+				<td class="col-md-2" style="text-align:center">
+					<a href="#">{{project.user.username}}</a>
+				</td>
+				<td class="col-md-4" style="text-align:center">
+					<a href="#">{{project.members}}</a>
+				</td>
+				<td class="col-md-1" style="text-align:center">
+					<span class="badge">{{project.issues.length}}</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<form ng-show="signedIn()" ng-submit="addProject()" style="margin-top:30px;">
+		<h3 >Add a new project</h3>
+		<div class="form-group">
+			<input type="text" placeholder="Title" ng-model="title" class="form-control"></input>
+		</div>
+		<div class="form-group">
+			<textarea ng-model="description" class="form-control" placeholder="Description">Description</textarea>
+		</div>
+		<div class="form-group">
+			<input type="text" placeholder="Project Member usernames separated by space" ng-model="members" class="form-control"></input>
+		</div>
+
+		<div class="row">
+			<div class="col-md-2">
+				<label>Private Repository:</label>
+			</div>
+			<div class="col-md-1" style="text-align:left;">
+				<input name ='a' type="checkbox" ng-model="privateflag" />
+			</div>
+			<div class="col-md-5"></div>
+			<div style="text-align:right;" class="col-md-4">
+				<button type="submit" class="btn btn-primary">Create</button>
+			</div>
+		</div>	
+			
+		
+	</form>
+</div>
+
+		
